@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Главная</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Добро пожаловать!</h1>
+
+        <nav style="margin: 20px 0;">
+            <a href="/">Главная</a> |
+            <a href="/about">О нас</a> |
+            <a href="/contact">Контакты</a>
+        </nav>
+
+        <p>Это простой Flask-сайт для обучения.</p>
+
+        <section>
+            <h2>Что вы можете сделать:</h2>
+            <ul>
+                <li>Перейти на <a href="/about">страницу «О нас»</a></li>
+                <li>Посмотреть <a href="/contact">контактную информацию</a></li>
+            </ul>
+        </section>
+
+        <footer>
+            &copy; 2026 Flask Demo
+        </footer>
+    </div>
+</body>
+</html>

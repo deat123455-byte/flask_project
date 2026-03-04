@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>О нас</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>О нас</h1>
+
+        <section>
+            <h2>Наша миссия</h2>
+            <p>Мы создаём простые, понятные и надёжные веб-приложения на Flask.</p>
+        </section>
+
+        <section>
+            <h2>Команда</h2>
+            <ul>
+                <li>Иван Петров — разработчик</li>
+                <li>Анна Сидорова — дизайнер</li>
+                <li>Дмитрий Кузнецов — тестировщик</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Технологии</h2>
+            <table border="1" cellpadding="8" cellspacing="0" style="width: 100%; border-collapse: collapse;">
+                <thead>
+                    <tr>
+                        <th>Технология</th>
+                        <th>Версия</th>
+                        <th>Назначение</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Flask</td>
+                        <td>3.0.0</td>
+                        <td>Веб-фреймворк</td>
+                    </tr>
+                    <tr>
+                        <td>Python</td>
+                        <td>3.10+</td>
+                        <td>Язык программирования</td>
+                    </tr>
+                    <tr>
+                        <td>Jinja2</td>
+                        <td>3.1.4</td>
+                        <td>Шаблонизатор</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>Наш логотип</h2>
+                <img src="{{ url_for('static', filename='images/my_image.png') }}" alt="Описание">
+        </section>
+
+        <footer>
+            <a href="/">← На главную</a>
+        </footer>
+    </div>
+</body>
+</html>
