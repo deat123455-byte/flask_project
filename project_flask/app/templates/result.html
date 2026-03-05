@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Результат отправки</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="result-container">
+        <h1 class="result-title">🎉 Спасибо, {{ name }}! 🎉</h1>
+        
+        <div class="result-card">
+            <div class="result-item">
+                <span class="result-icon">🎨</span>
+                <span>Ваш любимый цвет — <strong style="color: {{ color }};">{{ color }}</strong></span>
+                <span class="color-dot" style="background-color: {{ color }};"></span>
+            </div>
+            
+            <div class="result-item">
+                <span class="result-icon">💼</span>
+                <span>Ваша профессия — <strong>{{ profession }}</strong></span>
+            </div>
+            
+            <div class="result-item">
+                <span class="result-icon">🎯</span>
+                <span>Ваши увлечения: <strong>{{ hobbies | join(', ') if hobbies else 'пока не указаны' }}</strong></span>
+            </div>
+            
+            <div class="result-item">
+                <span class="result-icon">🏆</span>
+                <span>Вы — <strong>{{ user_type }}</strong></span>
+            </div>
+        </div>
+        
+        <div class="joke-container">
+            <p class="joke-title">🤡 А теперь шутка для вас:</p>
+            <p class="joke-text">{{ joke }}</p>
+        </div>
+        
+        <a href="/" class="back-button">🔄 Заполнить ещё раз</a>
+    </div>
+</body>
+</html>
