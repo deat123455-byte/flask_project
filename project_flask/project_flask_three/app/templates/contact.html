@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block title %}Контакты - Flask App{% endblock %}
+
+{% block content %}
+<div class="page contact">
+    <h1>Свяжитесь с нами</h1>
+    <p class="intro">
+        Есть вопросы или предложения? Заполните форму ниже, и мы ответим вам в ближайшее время.
+    </p>
+
+    <section class="contact-info">
+        <h2>Контактная информация</h2>
+        <div class="info-block">
+            <p><strong>Отдел:</strong> {{ contact_info.department }}</p>
+            <p><strong>Менеджер:</strong> {{ contact_info.manager }}</p>
+            <p><strong>Email:</strong> {{ contact_info.email }}</p>
+            <p><strong>Телефон:</strong> {{ contact_info.phone }}</p>
+            <h3>Адрес:</h3>
+            <address>
+                {{ contact_info.address.street }}<br>
+                {{ contact_info.address.city }}, {{ contact_info.address.postal_code }}<br>
+                {{ contact_info.address.country }}
+            </address>
+        </div>
+    </section>
+
+    <form method="POST" action="{{ url_for('contact') }}" class="contact-form">
+        <div class="form-group">
+            <label for="name">Имя *</label>
+            <input 
+                type="text" 
+                id="name" 
+                name="name" 
+                value="{{ name if name else '' }}"
+                placeholder="Введите ваше имя"
+                required
+            >
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email *</label>
+            <input 
+                type="email" 
+                id="email" 
+                name="email" 
+                value="{{ email if email else '' }}"
+                placeholder="example@email.com"
+                required
+            >
+        </div>
+
+        <div class="form-group">
+            <label for="message">Сообщение *</label>
+            <textarea 
+                id="message" 
+                name="message" 
+                rows="5" 
+                placeholder="Введите ваше сообщение"
+                required
+            >{{ message if message else '' }}</textarea>
+        </div>
+
+        <button type="submit" class="btn">Отправить сообщение</button>
+    </form>
+</div>
+{% endblock %}

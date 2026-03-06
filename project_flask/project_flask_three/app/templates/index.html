@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Главная - Flask App{% endblock %}
+
+{% block content %}
+<div class="page home">
+    <h1>Добро пожаловать!</h1>
+    <div class="logo-large">
+        <img src="{{ url_for('static', filename='img/logo.svg') }}" alt="Logo">
+    </div>
+    <p class="welcome-text">
+        Мы рады приветствовать вас на нашем сайте. Это простое веб-приложение,
+        созданное с использованием фреймворка Flask.
+    </p>
+    <p class="current-date">
+        Сегодня: {{ current_date }}
+    </p>
+    <div class="features">
+        <h2>Что вы найдёте на нашем сайте:</h2>
+        <ul>
+            <li>Информацию о нашем проекте</li>
+            <li>Возможность связаться с нами</li>
+            <li>Удобный и современный интерфейс</li>
+        </ul>
+    </div>
+    <a href="{{ url_for('contact') }}" class="btn">Связаться с нами</a>
+</div>
+{% endblock %}
