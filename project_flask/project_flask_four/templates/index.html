@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+{% block title %}Список Агентов{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>🔍 Поиск агентов</h2>
+    <form method="GET" action="{{ url_for('index') }}" class="search-box">
+        <input type="text" name="search" placeholder="Поиск по кодовому имени..." value="{{ search_query }}">
+        <select name="access_level">
+            <option value="">Все уровни доступа</option>
+            {% for level in access_levels %}
+            <option value="{{ level }}" {% if access_filter == level %}selected{% endif %}>{{ level }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit" class="btn btn-primary">Найти</button>
+        {% if search_query or access_filter %}
+        <a href="{{ url_for('index') }}" class="btn btn-warning">Сбросить</a>
+        {% endif %}
+    </form>
+</div>
+
+<div class="card">
+    <h2>📋 Досье агентов</h2>
+    
+    {% if agents %}
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Кодовое имя</th>
+                <th>Телефон</th>
+                <th>Email</th>
+                <th>Уровень доступа</th>
+                <th>Действия</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for agent in agents %}
+            <tr>
+                <td>#{{ agent.id }}</td>
+                <td><strong>{{ agent.code_name }}</strong></td>
+                <td>{{ agent.phone }}</td>
+                <td>{{ agent.email }}</td>
+                <td>
+                    {% if agent.access_level == 'Секретно' %}
+                        <span class="access-badge access-secret">Секретно</span>
+                    {% elif agent.access_level == 'Совершенно секретно' %}
+                        <span class="access-badge access-top-secret">Совершенно секретно</span>
+                    {% elif agent.access_level == 'Абсолютно секретно' %}
+                        <span class="access-badge access-ultra">Абсолютно секретно</span>
+                    {% else %}
+                        <span class="access-badge access-special">Особый доступ</span>
+                    {% endif %}
+                </td>
+                <td class="actions">
+                    <a href="{{ url_for('view_agent', id=agent.id) }}" class="btn btn-primary">📄</a>
+                    <a href="{{ url_for('edit_agent', id=agent.id) }}" class="btn btn-warning">✏️</a>
+                    <form action="{{ url_for('delete_agent', id=agent.id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Уничтожить досье этого агента?');">
+                        <button type="submit" class="btn btn-danger">🗑️</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <div class="empty-state">
+        <h2>📭 Нет агентов в базе</h2>
+        <p>Добавьте первого агента, чтобы начать работу</p>
+        <br>
+        <a href="{{ url_for('add_agent') }}" class="btn btn-primary">➕ Добавить агента</a>
+    </div>
+    {% endif %}
+</div>
+
+{% if agents %}
+<div class="nuke-section">
+    <h3>⚠️ СЕКРЕТНЫЙ РЕЖИМ ⚠️</h3>
+    <p>Это действие необратимо уничтожит ВСЕ досье агентов!</p>
+    <br>
+    <form action="{{ url_for('nuke_database') }}" method="POST" onsubmit="return confirm('ВЫ УВЕРЕНЫ? Это действие уничтожит ВСЮ базу данных!');">
+        <button type="submit" class="btn btn-danger">💣 УНИЧТОЖИТЬ ВСЕ ДАННЫЕ</button>
+    </form>
+</div>
+{% endif %}
+{% endblock %}

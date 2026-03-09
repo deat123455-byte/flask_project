@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}Редактировать: {{ agent.code_name }}{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>✏️ Редактирование досье</h2>
+    <form method="POST" action="{{ url_for('edit_agent', id=agent.id) }}">
+        <div class="form-group">
+            <label for="code_name">Кодовое имя</label>
+            <input type="text" id="code_name" name="code_name" value="{{ agent.code_name }}" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="phone">Контактный номер</label>
+            <input type="tel" id="phone" name="phone" value="{{ agent.phone }}" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="email">Email для шифрованных сообщений</label>
+            <input type="email" id="email" name="email" value="{{ agent.email }}" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="access_level">Уровень доступа</label>
+            <select id="access_level" name="access_level" required>
+                <option value="">Выберите уровень...</option>
+                <option value="Секретно" {% if agent.access_level == 'Секретно' %}selected{% endif %}>Секретно</option>
+                <option value="Совершенно секретно" {% if agent.access_level == 'Совершенно секретно' %}selected{% endif %}>Совершенно секретно</option>
+                <option value="Абсолютно секретно" {% if agent.access_level == 'Абсолютно секретно' %}selected{% endif %}>Абсолютно секретно</option>
+                <option value="Особый доступ" {% if agent.access_level == 'Особый доступ' %}selected{% endif %}>Особый доступ</option>
+            </select>
+        </div>
+        
+        <div class="actions">
+            <button type="submit" class="btn btn-success">✓ Сохранить изменения</button>
+            <a href="{{ url_for('view_agent', id=agent.id) }}" class="btn btn-warning">Отмена</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

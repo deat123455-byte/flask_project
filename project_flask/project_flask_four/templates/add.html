@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block title %}Добавить Агента{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>➕ Новый агент</h2>
+    <form method="POST" action="{{ url_for('add_agent') }}">
+        <div class="form-group">
+            <label for="code_name">Кодовое имя</label>
+            <div style="display: flex; gap: 10px;">
+                <input type="text" id="code_name" name="code_name" placeholder="Например: Shadow Fox" required>
+                <button type="button" class="btn btn-info" onclick="generateRandomName()">🎲 Случайное имя</button>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="phone">Контактный номер</label>
+            <input type="tel" id="phone" name="phone" placeholder="+1-555-000-0000" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="email">Email для шифрованных сообщений</label>
+            <input type="email" id="email" name="email" placeholder="agent@secret.gov" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="access_level">Уровень доступа</label>
+            <select id="access_level" name="access_level" required>
+                <option value="">Выберите уровень...</option>
+                <option value="Секретно">Секретно</option>
+                <option value="Совершенно секретно">Совершенно секретно</option>
+                <option value="Абсолютно секретно">Абсолютно секретно</option>
+                <option value="Особый доступ">Особый доступ</option>
+            </select>
+        </div>
+        
+        <div class="actions">
+            <button type="submit" class="btn btn-success">✓ Добавить агента</button>
+            <a href="{{ url_for('index') }}" class="btn btn-warning">Отмена</a>
+        </div>
+    </form>
+</div>
+
+<script>
+    const codeNames = {{ code_names | tojson }};
+    
+    function generateRandomName() {
+        const adjectives = ['Shadow', 'Black', 'White', 'Red', 'Blue', 'Silent', 'Dark', 'Swift', 'Iron', 'Ghost', 'Night', 'Storm'];
+        const nouns = ['Fox', 'Wolf', 'Eagle', 'Hawk', 'Viper', 'Raven', 'Tiger', 'Falcon', 'Cobra', 'Panther', 'Owl', 'Dragon'];
+        const randomAdj = adjectives[Math.floor(Math.random() * adjectives.length)];
+        const randomNoun = nouns[Math.floor(Math.random() * nouns.length)];
+        document.getElementById('code_name').value = randomAdj + ' ' + randomNoun;
+    }
+</script>
+{% endblock %}

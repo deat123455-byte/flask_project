@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ agent.code_name }} - Досье{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>📄 Досье агента: {{ agent.code_name }}</h2>
+    
+    <div class="agent-detail">
+        <div class="detail-item">
+            <label>ID досье</label>
+            <p>#{{ agent.id }}</p>
+        </div>
+        
+        <div class="detail-item">
+            <label>Кодовое имя</label>
+            <p>{{ agent.code_name }}</p>
+        </div>
+        
+        <div class="detail-item">
+            <label>Контактный номер</label>
+            <p>{{ agent.phone }}</p>
+        </div>
+        
+        <div class="detail-item">
+            <label>Email</label>
+            <p>{{ agent.email }}</p>
+        </div>
+        
+        <div class="detail-item">
+            <label>Уровень доступа</label>
+            <p>
+                {% if agent.access_level == 'Секретно' %}
+                    <span class="access-badge access-secret">Секретно</span>
+                {% elif agent.access_level == 'Совершенно секретно' %}
+                    <span class="access-badge access-top-secret">Совершенно секретно</span>
+                {% elif agent.access_level == 'Абсолютно секретно' %}
+                    <span class="access-badge access-ultra">Абсолютно секретно</span>
+                {% else %}
+                    <span class="access-badge access-special">Особый доступ</span>
+                {% endif %}
+            </p>
+        </div>
+    </div>
+    
+    <br>
+    <div class="actions">
+        <a href="{{ url_for('edit_agent', id=agent.id) }}" class="btn btn-warning">✏️ Редактировать</a>
+        <form action="{{ url_for('send_message', id=agent.id) }}" method="POST" style="display:inline;">
+            <button type="submit" class="btn btn-info">📩 Отправить сообщение</button>
+        </form>
+        <a href="{{ url_for('index') }}" class="btn btn-primary">← Назад к списку</a>
+    </div>
+</div>
+
+<div class="nuke-section" style="background: rgba(255, 68, 68, 0.1); border-color: #ff4444;">
+    <h3 style="color: #ff4444;">☠️ Опасная зона</h3>
+    <p>Удаление досье необратимо уничтожит все данные об этом агенте!</p>
+    <br>
+    <form action="{{ url_for('delete_agent', id=agent.id) }}" method="POST" onsubmit="return confirm('УНИЧТОЖИТЬ ДОСЬЕ? Это действие необратимо!');">
+        <button type="submit" class="btn btn-danger">🗑️ Уничтожить досье</button>
+    </form>
+</div>
+{% endblock %}
